@@ -132,27 +132,27 @@
     document.addEventListener('keydown', (e) => {
       const mod = e.metaKey || e.ctrlKey;
 
-      // Cmd/Ctrl+S — toggle show on active tab
-      if (mod && !e.shiftKey && !e.altKey && e.code === 'KeyS') {
+      // Option+Cmd/Ctrl+S — toggle show on active tab (Guides tab → guides)
+      if (mod && e.altKey && !e.shiftKey && e.code === 'KeyS') {
         e.preventDefault();
         if (activeTab === 'guides') toggleGuidesVisible();
         else toggleShow();
         return;
       }
-      // Cmd/Ctrl+L — toggle lock on active tab
-      if (mod && !e.shiftKey && !e.altKey && e.code === 'KeyL') {
+      // Option+Cmd/Ctrl+C — toggle lock on active tab (Guides tab → guides)
+      if (mod && e.altKey && !e.shiftKey && e.code === 'KeyC') {
         e.preventDefault();
         if (activeTab === 'guides') toggleGuidesLocked();
         else toggleLock();
         return;
       }
-      // Legacy: Alt+S / Alt+C still work (layers only)
-      if (e.altKey && e.code === 'KeyS') {
+      // Legacy: Alt+S / Alt+C still work for layers
+      if (e.altKey && !mod && e.code === 'KeyS') {
         e.preventDefault();
         toggleShow();
         return;
       }
-      if (e.altKey && e.code === 'KeyC') {
+      if (e.altKey && !mod && e.code === 'KeyC') {
         e.preventDefault();
         toggleLock();
         return;

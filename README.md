@@ -59,8 +59,8 @@ This extension lets you **overlay the design mock directly on the live page**, t
 
 | Key | Action |
 |-----|--------|
-| **⌘S / Ctrl+S** (Guides tab) | Toggle guides visibility |
-| **⌘L / Ctrl+L** (Guides tab) | Toggle guides lock |
+| **⌥⌘S / Alt+Ctrl+S** (Guides tab) | Toggle guides visibility |
+| **⌥⌘C / Alt+Ctrl+C** (Guides tab) | Toggle guides lock |
 | **⌥S / Alt+S** | Toggle current layer visibility |
 | **⌥C / Alt+C** | Toggle current layer lock |
 | **↑ ↓ ← →** | Move layer 1px |
@@ -163,8 +163,8 @@ Issues / PRs / DMs welcome.
 
 | 鍵 | 動作 |
 |----|------|
-| **⌘S / Ctrl+S**（在 Guides tab）| 切換輔助線顯示 |
-| **⌘L / Ctrl+L**（在 Guides tab）| 切換輔助線鎖定 |
+| **⌥⌘S / Alt+Ctrl+S**（在 Guides tab）| 切換輔助線顯示 |
+| **⌥⌘C / Alt+Ctrl+C**（在 Guides tab）| 切換輔助線鎖定 |
 | **⌥S / Alt+S** | 切換目前圖層顯示 |
 | **⌥C / Alt+C** | 切換目前圖層鎖定 |
 | **↑ ↓ ← →** | 圖層位移 1px |

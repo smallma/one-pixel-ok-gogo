@@ -150,15 +150,17 @@
     </div>
     </div><!-- /tabLayers -->
 
+    <!-- Reused at bottom of Guides tab below — kept inside that panel for consistency -->
+
     <!-- ============ GUIDES TAB ============ -->
     <div id="tabGuides" class="pp-tab-panel">
       <!-- Show / Lock row -->
       <div class="pp-controls-row pp-guides-controls">
-        <button id="btnGuidesShow" class="pp-ctrl-btn pp-ctrl-active" title="Toggle visibility (⌘S)">
+        <button id="btnGuidesShow" class="pp-ctrl-btn pp-ctrl-active" title="Toggle visibility (⌥⌘S)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Show
         </button>
-        <button id="btnGuidesLock" class="pp-ctrl-btn" title="Toggle lock (⌘L)">
+        <button id="btnGuidesLock" class="pp-ctrl-btn" title="Toggle lock (⌥⌘C)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           Lock
         </button>
@@ -226,6 +228,13 @@
 
       <div class="pp-guides-hint">
         <p>Lines float over the viewport. Drag them on the page to reposition. Spacing between same-axis guides is shown automatically.</p>
+      </div>
+
+      <!-- Shortcuts Hint -->
+      <div class="pp-shortcuts">
+        <span>⌥⌘S show/hide</span>
+        <span>⌥⌘C lock</span>
+        <span>drag line to move</span>
       </div>
     </div><!-- /tabGuides -->
   </div>
