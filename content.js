@@ -64,8 +64,31 @@
       if (data[STORAGE_KEY]) {
         state = data[STORAGE_KEY];
       }
+      migrateLayersToFixed();
       renderOverlays();
     });
+  }
+
+  // One-time migration: layers were absolute (document-relative), now fixed
+  // (viewport-relative). Old offsetY may be a large value (e.g. 4528 from a
+  // scrolled page) that lands far below the visible viewport. Reset such
+  // layers to "horizontally centered, top edge at viewport top" so they
+  // remain usable.
+  function migrateLayersToFixed() {
+    if (!state.layers || !state.layers.length) return;
+    let changed = false;
+    state.layers.forEach((layer) => {
+      if (layer.fixedMigrated) return;
+      const naturalW = layer.naturalWidth || 0;
+      const scale = layer.scale || 1;
+      const iw = naturalW * scale;
+      const vw = window.innerWidth;
+      layer.offsetX = Math.round((vw - iw) / 2);
+      layer.offsetY = 0;
+      layer.fixedMigrated = true;
+      changed = true;
+    });
+    if (changed) saveState();
   }
 
   function saveState() {
@@ -119,49 +142,42 @@
     const scale = layer.scale || 1;
     const iw = naturalW * scale;
     const ih = naturalH * scale;
-    // Use window.innerWidth/Height — same basis as guides, so layer-center and
-    // vertical-guide-center always coincide.
+    // Layers are fixed to the viewport, so positions are viewport-relative
+    // (no scroll offset). Same basis as guides → centers always coincide.
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const scrollX = window.scrollX || document.documentElement.scrollLeft || 0;
-    const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
 
     let left = 0;
     let top = 0;
 
-    // All five anchors are computed against the CURRENT viewport
-    // (scrollX/scrollY = top-left of what the user is looking at right now).
-    // Default baseline: horizontally centered, vertically pinned to viewport top.
-    const centerX = scrollX + (vw - iw) / 2;
-    const centerY = scrollY + (vh - ih) / 2;
+    const centerX = (vw - iw) / 2;
+    const centerY = (vh - ih) / 2;
 
     // top/bottom only change Y (X stays put); left/right only change X (Y stays put);
-    // center recenters both axes.
+    // center recenters horizontally always, vertically only if layer fits.
     const currentX = layer.offsetX !== undefined ? layer.offsetX : centerX;
-    const currentY = layer.offsetY !== undefined ? layer.offsetY : scrollY;
+    const currentY = layer.offsetY !== undefined ? layer.offsetY : 0;
 
     switch (originStr || 'top') {
       case 'top':
         left = currentX;
-        top = scrollY;
+        top = 0;
         break;
       case 'bottom':
         left = currentX;
-        top = scrollY + (vh - ih);
+        top = vh - ih;
         break;
       case 'left':
-        left = scrollX;
+        left = 0;
         top = currentY;
         break;
       case 'right':
-        left = scrollX + (vw - iw);
+        left = vw - iw;
         top = currentY;
         break;
       case 'center':
       default:
         left = centerX;
-        // Vertically center only when the layer fits in the viewport;
-        // otherwise keep current Y so user-aligned position is preserved.
         top = (ih <= vh) ? centerY : currentY;
         break;
     }
@@ -306,13 +322,13 @@
           layer.naturalHeight = naturalH;
 
           const vw = window.innerWidth;
-          const scrollX = window.scrollX || 0;
-          const scrollY = window.scrollY || 0;
           const iw = naturalW * scale;
 
-          // Default: horizontally centered on viewport, top edge pinned to current scroll.
-          layer.offsetX = Math.round(scrollX + (vw - iw) / 2);
-          layer.offsetY = Math.round(scrollY);
+          // Default: horizontally centered on viewport, top edge at viewport top.
+          // Layer is fixed-positioned, so coordinates are viewport-relative.
+          layer.offsetX = Math.round((vw - iw) / 2);
+          layer.offsetY = 0;
+          layer.fixedMigrated = true;
           layer.origin = 'top';
           // Also write back to current `state.layers` in case `layer` is from a
           // stale reference (storage listener may have swapped state).
@@ -323,6 +339,7 @@
             state.layers[index].isNew = false;
             state.layers[index].naturalWidth = naturalW;
             state.layers[index].naturalHeight = naturalH;
+            state.layers[index].fixedMigrated = true;
           }
           saveState();
         }
