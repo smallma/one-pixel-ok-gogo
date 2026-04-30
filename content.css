@@ -1,0 +1,195 @@
+/* ========================================
+   PerfectPixel Overlay — Content CSS
+   Injected into every page
+   ======================================== */
+
+#pp-overlay-container {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  z-index: 2147483647 !important;
+  pointer-events: none !important;
+  overflow: visible !important;
+  /* NO isolation — let it participate in root stacking context */
+}
+
+#pp-overlay-container .pp-layer-img {
+  position: absolute !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  image-rendering: auto !important;
+  transform-origin: top left !important;
+  z-index: 2147483647 !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#pp-overlay-container .pp-layer-img.pp-draggable {
+  pointer-events: auto !important;
+  cursor: move !important;
+}
+
+#pp-overlay-container .pp-layer-img.pp-draggable:hover {
+  outline: 1px dashed rgba(233, 30, 99, 0.5) !important;
+}
+
+#pp-overlay-container .pp-layer-img.pp-selected {
+  outline: 2px dashed rgba(233, 30, 99, 0.7) !important;
+}
+
+#pp-overlay-container .pp-layer-img.pp-dragging {
+  outline: 2px solid rgba(233, 30, 99, 0.9) !important;
+  cursor: grabbing !important;
+}
+
+/* ---- Guides overlay ---- */
+#pp-guides-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2147483646 !important;
+  pointer-events: none !important;
+  overflow: visible !important;
+}
+
+#pp-guides-container .pp-guide {
+  position: absolute !important;
+  background: #ff2a76 !important;
+  pointer-events: auto !important;
+  z-index: 2147483646 !important;
+}
+
+#pp-guides-container .pp-guide-h {
+  left: 0 !important;
+  width: 100% !important;
+  height: 1px !important;
+  border-top: 1px dashed #ff2a76 !important;
+  background: transparent !important;
+  cursor: ns-resize !important;
+}
+
+#pp-guides-container .pp-guide-v {
+  top: 0 !important;
+  height: 100% !important;
+  width: 1px !important;
+  border-left: 1px dashed #ff2a76 !important;
+  background: transparent !important;
+  cursor: ew-resize !important;
+}
+
+/* Wider invisible hit area for easier dragging */
+#pp-guides-container .pp-guide::before {
+  content: "" !important;
+  position: absolute !important;
+  background: transparent !important;
+}
+
+#pp-guides-container .pp-guide-h::before {
+  left: 0 !important;
+  right: 0 !important;
+  top: -5px !important;
+  height: 11px !important;
+}
+
+#pp-guides-container .pp-guide-v::before {
+  top: 0 !important;
+  bottom: 0 !important;
+  left: -5px !important;
+  width: 11px !important;
+}
+
+#pp-guides-container .pp-guide:hover,
+#pp-guides-container .pp-guide.pp-dragging {
+  border-color: #ff4d8d !important;
+  box-shadow: 0 0 6px rgba(255, 42, 118, 0.6) !important;
+}
+
+#pp-guides-container .pp-guide-label {
+  position: absolute !important;
+  background: #ff2a76 !important;
+  color: #fff !important;
+  font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  padding: 3px 6px !important;
+  border-radius: 3px !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
+}
+
+#pp-guides-container .pp-guide-spacing {
+  position: absolute !important;
+  color: #ff2a76 !important;
+  background: rgba(20, 20, 24, 0.85) !important;
+  border: 1px solid rgba(255, 42, 118, 0.5) !important;
+  font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  padding: 3px 6px !important;
+  border-radius: 3px !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+}
+
+#pp-panel-container {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 340px !important;
+  height: calc(100vh - 40px) !important;
+  max-height: 600px !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: rgba(20, 20, 24, 0.75) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  overflow: hidden !important;
+  pointer-events: auto !important;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#pp-panel-container.pp-hidden {
+  opacity: 0 !important;
+  transform: translateY(-20px) scale(0.98) !important;
+  pointer-events: none !important;
+}
+
+#pp-panel-drag-header {
+  height: 28px !important;
+  background: transparent !important;
+  cursor: grab !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  user-select: none !important;
+}
+
+#pp-panel-drag-header:active {
+  cursor: grabbing !important;
+}
+
+#pp-panel-drag-header::before {
+  content: "•••" !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  letter-spacing: 4px !important;
+}
+
+#pp-panel-iframe {
+  flex: 1 !important;
+  width: 100% !important;
+  border: none !important;
+  background: transparent !important;
+}

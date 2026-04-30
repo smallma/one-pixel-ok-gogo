@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnePixelOkGoGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="pp-popup">
+    <!-- Header -->
+    <header class="pp-header">
+      <div class="pp-logo">
+        <img src="icons/icon48.png" width="20" height="20" alt="Icon">
+        <span>OnePixelOkGoGo</span>
+      </div>
+      <button id="btnClose" class="pp-close-btn" title="Close Panel">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Tabs -->
+    <div class="pp-tabs">
+      <button class="pp-tab pp-tab-active" data-tab="layers">Layers</button>
+      <button class="pp-tab" data-tab="guides">Guides</button>
+    </div>
+
+    <!-- ============ LAYERS TAB ============ -->
+    <div id="tabLayers" class="pp-tab-panel pp-tab-panel-active">
+
+    <!-- Upload Bar -->
+    <div class="pp-upload-bar">
+      <button id="btnUpload" class="pp-upload-btn" title="Upload image file">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload
+      </button>
+      <button id="btnPaste" class="pp-upload-btn" title="Paste from clipboard">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        Paste
+      </button>
+    </div>
+
+    <!-- Drop Zone (hidden, shows on drag) -->
+    <div id="dropZone" class="pp-drop-zone">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <p>Drop image here</p>
+    </div>
+
+    <!-- Layers Section -->
+    <div class="pp-layers-section">
+      <div class="pp-layers-header">
+        <span>LAYERS (<span id="layerCount">0</span>)</span>
+        <span class="pp-layers-max">max 50</span>
+      </div>
+      <div id="layerGrid" class="pp-layer-grid">
+        <div class="pp-empty-hint" id="emptyHint">
+          <p>No layers yet</p>
+          <p>Upload, paste, or drag an image</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layer Controls (shown when a layer is selected) -->
+    <div id="layerControls" class="pp-layer-controls">
+      <!-- Show / Lock -->
+      <div class="pp-controls-row">
+        <button id="btnShow" class="pp-ctrl-btn pp-ctrl-active" title="Toggle visibility">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Show
+        </button>
+        <button id="btnLock" class="pp-ctrl-btn" title="Toggle lock (Alt+C)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Lock
+        </button>
+      </div>
+
+      <!-- Origin -->
+      <div class="pp-origin-section">
+        <div class="pp-section-header">
+          <span class="pp-label">ORIGIN:</span>
+          <button id="btnReset" class="pp-reset-btn">RESET</button>
+        </div>
+        <div class="pp-origin-layout">
+          <div class="pp-arrow-grid">
+            <div class="pp-arrow-row">
+              <span></span>
+              <button data-origin="top" class="pp-arrow-btn" title="Align top">↑</button>
+              <span></span>
+            </div>
+            <div class="pp-arrow-row">
+              <button data-origin="left" class="pp-arrow-btn" title="Align left">←</button>
+              <button data-origin="center" class="pp-arrow-btn pp-arrow-center" title="Align center">⊕</button>
+              <button data-origin="right" class="pp-arrow-btn" title="Align right">→</button>
+            </div>
+            <div class="pp-arrow-row">
+              <span></span>
+              <button data-origin="bottom" class="pp-arrow-btn" title="Align bottom">↓</button>
+              <span></span>
+            </div>
+          </div>
+          <div class="pp-position-inputs">
+            <div class="pp-input-group">
+              <label class="pp-input-label">X</label>
+              <input type="number" id="inputX" value="0" class="pp-num-input">
+            </div>
+            <div class="pp-input-group">
+              <label class="pp-input-label">Y</label>
+              <input type="number" id="inputY" value="0" class="pp-num-input">
+            </div>
+            <div class="pp-input-group">
+              <label class="pp-input-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              </label>
+              <input type="number" id="inputScale" value="1.0" step="0.001" min="0.001" class="pp-num-input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opacity -->
+      <div class="pp-opacity-section">
+        <div class="pp-section-header">
+          <span class="pp-label">OPACITY:</span>
+          <span id="opacityValue" class="pp-opacity-value">100%</span>
+        </div>
+        <input type="range" id="opacitySlider" min="0" max="100" value="100" class="pp-slider">
+      </div>
+
+      <!-- Delete -->
+      <div class="pp-delete-section">
+        <button id="btnDelete" class="pp-delete-btn" title="Remove this layer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          Delete Layer
+        </button>
+      </div>
+    </div>
+
+    <!-- Shortcuts Hint -->
+    <div class="pp-shortcuts">
+      <span>⌥S show/hide</span>
+      <span>⌥C lock</span>
+      <span>↑↓←→ ±1px</span>
+      <span>⇧+↑↓←→ ±10px</span>
+    </div>
+    </div><!-- /tabLayers -->
+
+    <!-- ============ GUIDES TAB ============ -->
+    <div id="tabGuides" class="pp-tab-panel">
+      <div class="pp-guides-actions">
+        <button id="btnAddH" class="pp-upload-btn" title="Add horizontal guide line">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/></svg>
+          + Horizontal
+        </button>
+        <button id="btnAddV" class="pp-upload-btn" title="Add vertical guide line">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="3" x2="12" y2="21"/></svg>
+          + Vertical
+        </button>
+      </div>
+
+      <div class="pp-guides-section">
+        <div class="pp-section-header">
+          <span class="pp-label">GUIDES (<span id="guideCount">0</span>)</span>
+          <button id="btnClearGuides" class="pp-reset-btn">CLEAR ALL</button>
+        </div>
+        <div id="guideList" class="pp-guide-list">
+          <div class="pp-empty-hint" id="guidesEmptyHint">
+            <p>No guides yet</p>
+            <p>Add horizontal or vertical lines</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pp-guides-hint">
+        <p>Lines float over the viewport. Drag them on the page to reposition. Spacing between same-axis guides is shown automatically.</p>
+      </div>
+    </div><!-- /tabGuides -->
+  </div>
+
+  <input type="file" id="fileInput" accept="image/*" style="display:none" multiple>
+  <script src="popup.js"></script>
+</body>
+</html>
