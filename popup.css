@@ -170,6 +170,76 @@ body {
   line-height: 1.5;
 }
 
+.pp-guides-controls {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--pp-border-light);
+}
+
+.pp-guides-style {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pp-border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pp-style-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pp-style-row .pp-input-label {
+  min-width: 50px;
+  text-align: left;
+  justify-content: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 10px;
+}
+
+.pp-style-row select.pp-num-input {
+  flex: 1;
+  cursor: pointer;
+}
+
+.pp-color-presets {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.pp-color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s;
+}
+
+.pp-color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.pp-color-swatch.active {
+  border-color: var(--pp-text);
+  box-shadow: 0 0 0 1px var(--pp-bg), 0 0 6px rgba(255,255,255,0.3);
+}
+
+.pp-color-custom {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--pp-border);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+}
+
 /* ---- Upload Bar ---- */
 .pp-upload-bar {
   display: flex;

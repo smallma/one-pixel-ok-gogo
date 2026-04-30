@@ -12,7 +12,12 @@
     selectedLayerIndex: -1,
     allVisible: true,
     guides: [], // [{ id, axis: 'h'|'v', pos: number }] — pos is viewport-relative px
+    guidesVisible: true,
+    guidesLocked: false,
+    guideStyle: { width: 1, style: 'dashed', color: '#ff2a76' },
   };
+
+  let activeTab = 'layers';
 
   /* ---------- DOM refs ---------- */
   const $ = (sel) => document.querySelector(sel);
@@ -40,6 +45,11 @@
   const guideList = $('#guideList');
   const guideCount = $('#guideCount');
   const guidesEmptyHint = $('#guidesEmptyHint');
+  const btnGuidesShow = $('#btnGuidesShow');
+  const btnGuidesLock = $('#btnGuidesLock');
+  const guideWidthSel = $('#guideWidth');
+  const guideStyleSel = $('#guideStyle');
+  const guideColorCustom = $('#guideColorCustom');
 
   /* ---------- Init ---------- */
   chrome.runtime.sendMessage({ type: 'GET_TAB_ID' }, (res) => {
@@ -120,7 +130,23 @@
 
     // Global spatial keyboard shortcuts for the popup (mirrors content.js)
     document.addEventListener('keydown', (e) => {
-      // Allow Alt+S and Alt+C to work from popup as well
+      const mod = e.metaKey || e.ctrlKey;
+
+      // Cmd/Ctrl+S — toggle show on active tab
+      if (mod && !e.shiftKey && !e.altKey && e.code === 'KeyS') {
+        e.preventDefault();
+        if (activeTab === 'guides') toggleGuidesVisible();
+        else toggleShow();
+        return;
+      }
+      // Cmd/Ctrl+L — toggle lock on active tab
+      if (mod && !e.shiftKey && !e.altKey && e.code === 'KeyL') {
+        e.preventDefault();
+        if (activeTab === 'guides') toggleGuidesLocked();
+        else toggleLock();
+        return;
+      }
+      // Legacy: Alt+S / Alt+C still work (layers only)
       if (e.altKey && e.code === 'KeyS') {
         e.preventDefault();
         toggleShow();
@@ -194,10 +220,47 @@
     if (btnAddH) btnAddH.addEventListener('click', () => addGuide('h'));
     if (btnAddV) btnAddV.addEventListener('click', () => addGuide('v'));
     if (btnClearGuides) btnClearGuides.addEventListener('click', clearGuides);
+    if (btnGuidesShow) btnGuidesShow.addEventListener('click', toggleGuidesVisible);
+    if (btnGuidesLock) btnGuidesLock.addEventListener('click', toggleGuidesLocked);
+
+    // Style controls
+    if (guideWidthSel) guideWidthSel.addEventListener('change', () => {
+      state.guideStyle = { ...state.guideStyle, width: Number(guideWidthSel.value) };
+      saveState();
+    });
+    if (guideStyleSel) guideStyleSel.addEventListener('change', () => {
+      state.guideStyle = { ...state.guideStyle, style: guideStyleSel.value };
+      saveState();
+    });
+    document.querySelectorAll('.pp-color-swatch').forEach((sw) => {
+      sw.addEventListener('click', () => {
+        state.guideStyle = { ...state.guideStyle, color: sw.dataset.color };
+        saveState();
+        renderUI();
+      });
+    });
+    if (guideColorCustom) guideColorCustom.addEventListener('input', () => {
+      state.guideStyle = { ...state.guideStyle, color: guideColorCustom.value };
+      saveState();
+      renderUI();
+    });
+  }
+
+  function toggleGuidesVisible() {
+    state.guidesVisible = !state.guidesVisible;
+    saveState();
+    renderUI();
+  }
+
+  function toggleGuidesLocked() {
+    state.guidesLocked = !state.guidesLocked;
+    saveState();
+    renderUI();
   }
 
   /* ---------- Tabs ---------- */
   function switchTab(name) {
+    activeTab = name;
     document.querySelectorAll('.pp-tab').forEach((t) => {
       t.classList.toggle('pp-tab-active', t.dataset.tab === name);
     });
@@ -490,6 +553,20 @@
 
   function renderGuides() {
     if (!guideList) return;
+
+    // Show/Lock buttons
+    if (btnGuidesShow) btnGuidesShow.classList.toggle('pp-ctrl-active', state.guidesVisible !== false);
+    if (btnGuidesLock) btnGuidesLock.classList.toggle('pp-ctrl-active', !!state.guidesLocked);
+
+    // Style selects
+    const gs = state.guideStyle || { width: 1, style: 'dashed', color: '#ff2a76' };
+    if (guideWidthSel) guideWidthSel.value = String(gs.width);
+    if (guideStyleSel) guideStyleSel.value = gs.style;
+    document.querySelectorAll('.pp-color-swatch').forEach((sw) => {
+      sw.classList.toggle('active', sw.dataset.color.toLowerCase() === (gs.color || '').toLowerCase());
+    });
+    if (guideColorCustom && gs.color) guideColorCustom.value = gs.color;
+
     const guides = state.guides || [];
     guideCount.textContent = guides.length;
     guidesEmptyHint.style.display = guides.length ? 'none' : '';

@@ -9,7 +9,7 @@
   left: 0 !important;
   width: 0 !important;
   height: 0 !important;
-  z-index: 2147483647 !important;
+  z-index: 2147483645 !important;
   pointer-events: none !important;
   overflow: visible !important;
   /* NO isolation — let it participate in root stacking context */
@@ -22,7 +22,7 @@
   -webkit-user-drag: none !important;
   image-rendering: auto !important;
   transform-origin: top left !important;
-  z-index: 2147483647 !important;
+  z-index: 2147483645 !important;
   max-width: none !important;
   max-height: none !important;
   margin: 0 !important;
@@ -63,7 +63,7 @@
 
 #pp-guides-container .pp-guide {
   position: absolute !important;
-  background: #ff2a76 !important;
+  background: transparent !important;
   pointer-events: auto !important;
   z-index: 2147483646 !important;
 }
@@ -71,19 +71,20 @@
 #pp-guides-container .pp-guide-h {
   left: 0 !important;
   width: 100% !important;
-  height: 1px !important;
-  border-top: 1px dashed #ff2a76 !important;
-  background: transparent !important;
+  height: 0 !important;
   cursor: ns-resize !important;
 }
 
 #pp-guides-container .pp-guide-v {
   top: 0 !important;
   height: 100% !important;
-  width: 1px !important;
-  border-left: 1px dashed #ff2a76 !important;
-  background: transparent !important;
+  width: 0 !important;
   cursor: ew-resize !important;
+}
+
+#pp-guides-container .pp-guide.pp-guide-locked {
+  cursor: default !important;
+  pointer-events: none !important;
 }
 
 /* Wider invisible hit area for easier dragging */
@@ -107,15 +108,8 @@
   width: 11px !important;
 }
 
-#pp-guides-container .pp-guide:hover,
-#pp-guides-container .pp-guide.pp-dragging {
-  border-color: #ff4d8d !important;
-  box-shadow: 0 0 6px rgba(255, 42, 118, 0.6) !important;
-}
-
 #pp-guides-container .pp-guide-label {
   position: absolute !important;
-  background: #ff2a76 !important;
   color: #fff !important;
   font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace !important;
   padding: 3px 6px !important;
@@ -127,9 +121,7 @@
 
 #pp-guides-container .pp-guide-spacing {
   position: absolute !important;
-  color: #ff2a76 !important;
   background: rgba(20, 20, 24, 0.85) !important;
-  border: 1px solid rgba(255, 42, 118, 0.5) !important;
   font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace !important;
   padding: 3px 6px !important;
   border-radius: 3px !important;

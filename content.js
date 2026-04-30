@@ -358,6 +358,9 @@
     if (!guidesContainer) createGuidesContainer();
     guidesContainer.innerHTML = '';
 
+    // Visibility — empty container if hidden
+    if (state.guidesVisible === false) return;
+
     const guides = state.guides || [];
     if (!guides.length) return;
 
@@ -374,6 +377,13 @@
     });
     if (needsSave) saveState();
 
+    // Pull global style with defaults
+    const gs = state.guideStyle || {};
+    const lineWidth = Math.max(1, Number(gs.width) || 1);
+    const lineStyle = gs.style || 'dashed';
+    const lineColor = gs.color || '#ff2a76';
+    const locked = !!state.guidesLocked;
+
     // Sort by position to compute spacing between adjacent same-axis guides.
     const hGuides = guides.filter((g) => g.axis === 'h').slice().sort((a, b) => a.pos - b.pos);
     const vGuides = guides.filter((g) => g.axis === 'v').slice().sort((a, b) => a.pos - b.pos);
@@ -382,17 +392,23 @@
     guides.forEach((g) => {
       const el = document.createElement('div');
       el.className = 'pp-guide ' + (g.axis === 'h' ? 'pp-guide-h' : 'pp-guide-v');
+      if (locked) el.classList.add('pp-guide-locked');
       el.dataset.guideId = g.id;
+
       if (g.axis === 'h') {
-        el.style.setProperty('top', g.pos + 'px', 'important');
+        // Place line so its visual center sits exactly at g.pos
+        el.style.setProperty('top', (g.pos - Math.floor(lineWidth / 2)) + 'px', 'important');
+        el.style.setProperty('border-top', `${lineWidth}px ${lineStyle} ${lineColor}`, 'important');
       } else {
-        el.style.setProperty('left', g.pos + 'px', 'important');
+        el.style.setProperty('left', (g.pos - Math.floor(lineWidth / 2)) + 'px', 'important');
+        el.style.setProperty('border-left', `${lineWidth}px ${lineStyle} ${lineColor}`, 'important');
       }
 
       // Position label (current px)
       const label = document.createElement('div');
       label.className = 'pp-guide-label';
       label.textContent = (g.axis === 'h' ? 'y: ' : 'x: ') + Math.round(g.pos) + 'px';
+      label.style.setProperty('background', lineColor, 'important');
       if (g.axis === 'h') {
         label.style.setProperty('top', (g.pos + 4) + 'px', 'important');
         label.style.setProperty('left', '8px', 'important');
@@ -401,7 +417,9 @@
         label.style.setProperty('top', '8px', 'important');
       }
 
-      el.addEventListener('mousedown', (e) => onGuideDragStart(e, g.id));
+      if (!locked) {
+        el.addEventListener('mousedown', (e) => onGuideDragStart(e, g.id));
+      }
       guidesContainer.appendChild(el);
       guidesContainer.appendChild(label);
     });
@@ -415,7 +433,8 @@
         const mid = (prev.pos + cur.pos) / 2;
         const lab = document.createElement('div');
         lab.className = 'pp-guide-spacing';
-        lab.textContent = '↕ ' + Math.round(gap) + 'px';
+        lab.style.setProperty('color', lineColor, 'important');
+        lab.style.setProperty('border', `1px solid ${lineColor}`, 'important');
         if (axis === 'h') {
           lab.textContent = '↕ ' + Math.round(gap) + 'px';
           lab.style.setProperty('top', (mid - 9) + 'px', 'important');
