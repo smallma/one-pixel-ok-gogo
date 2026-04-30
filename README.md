@@ -68,7 +68,7 @@ This extension lets you **overlay the design mock directly on the live page**, t
 
 ### Install
 
-> Not yet on Chrome Web Store. Load it as an unpacked extension:
+> Already submitted to Chrome Web Store. Try to load it as an unpacked extension:
 
 1. Download / clone this repo
 2. Open Chrome → `chrome://extensions`
@@ -76,7 +76,6 @@ This extension lets you **overlay the design mock directly on the live page**, t
 4. Click **Load unpacked** → select the project folder
 5. Pin the icon to your toolbar
 
-![Install](docs/screenshots/install.png)
 
 ### Quick Start
 
@@ -172,7 +171,7 @@ Issues / PRs / DMs welcome.
 
 ### 安裝
 
-> 此套件目前未上架 Chrome Web Store，請用「載入未封裝項目」安裝。
+> 此套件目前正在上架 Chrome Web Store，發布前請用「載入未封裝項目」安裝。
 
 1. 把整個 repo 下載 / clone 到本機
 2. 開 Chrome → 網址列輸入 `chrome://extensions`
@@ -180,7 +179,6 @@ Issues / PRs / DMs welcome.
 4. 點「**載入未封裝項目**」→ 選擇本專案資料夾
 5. 釘選圖示到工具列即可
 
-![Install](docs/screenshots/install.png)
 
 ### 快速上手
 
