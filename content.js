@@ -119,13 +119,12 @@
     const scale = layer.scale || 1;
     const iw = naturalW * scale;
     const ih = naturalH * scale;
-    // Use visualViewport when available — it reflects what the user actually sees
-    // (accounts for pinch-zoom, virtual keyboard, etc). Fall back to documentElement.
-    const vv = window.visualViewport;
-    const vw = vv ? vv.width : document.documentElement.clientWidth;
-    const vh = vv ? vv.height : document.documentElement.clientHeight;
-    const scrollX = vv ? vv.pageLeft : (window.scrollX || document.documentElement.scrollLeft);
-    const scrollY = vv ? vv.pageTop : (window.scrollY || document.documentElement.scrollTop);
+    // Use window.innerWidth/Height — same basis as guides, so layer-center and
+    // vertical-guide-center always coincide.
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scrollX = window.scrollX || document.documentElement.scrollLeft || 0;
+    const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
 
     let left = 0;
     let top = 0;
@@ -161,7 +160,9 @@
       case 'center':
       default:
         left = centerX;
-        top = currentY;
+        // Vertically center only when the layer fits in the viewport;
+        // otherwise keep current Y so user-aligned position is preserved.
+        top = (ih <= vh) ? centerY : currentY;
         break;
     }
 
@@ -304,10 +305,9 @@
           layer.naturalWidth = naturalW;
           layer.naturalHeight = naturalH;
 
-          const vv = window.visualViewport;
-          const vw = vv ? vv.width : document.documentElement.clientWidth;
-          const scrollX = vv ? vv.pageLeft : (window.scrollX || 0);
-          const scrollY = vv ? vv.pageTop : (window.scrollY || 0);
+          const vw = window.innerWidth;
+          const scrollX = window.scrollX || 0;
+          const scrollY = window.scrollY || 0;
           const iw = naturalW * scale;
 
           // Default: horizontally centered on viewport, top edge pinned to current scroll.
