@@ -1,5 +1,5 @@
 /* ========================================
-   PerfectPixel Overlay — Content Script
+   onePixelOkGogo Overlay — Content Script
    Handles overlay rendering, drag, keyboard
    ======================================== */
 (function () {

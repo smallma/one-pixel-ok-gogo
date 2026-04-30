@@ -1,4 +1,4 @@
-// PerfectPixel Overlay — Background Service Worker
+// onePixelOkGogo Overlay — Background Service Worker
 
 const DEFAULT_STATE = {
   layers: [],

@@ -1,5 +1,5 @@
 /* ========================================
-   PerfectPixel Overlay — Popup Logic
+   onePixelOkGogo Overlay — Popup Logic
    ======================================== */
 (function () {
   'use strict';

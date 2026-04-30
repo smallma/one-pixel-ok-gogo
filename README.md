@@ -1,6 +1,6 @@
 # OnePixelOkGoGo
 
-> **Pixel-perfect overlay & smart guides — right inside your browser.**
+> **one-pixel-ok-gogo overlay & smart guides — right inside your browser.**
 >
 > Overlay your design mock on the live page, nudge it pixel-by-pixel until it matches. Never again toggle between Figma and Chrome.
 
@@ -90,7 +90,7 @@ This extension lets you **overlay the design mock directly on the live page**, t
 
 ### Who's it for
 
-- **Frontend devs** — pixel-perfect implementation, locale alignment, responsive QA
+- **Frontend devs** — one-pixel-ok-gogo implementation, locale alignment, responsive QA
 - **UI/UX designers** — visual QA against the design spec
 - **QA engineers** — screenshot diffing, visual regression repro
 - **Content editors** — verify layout & margins
