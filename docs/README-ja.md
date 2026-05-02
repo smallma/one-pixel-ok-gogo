@@ -8,7 +8,7 @@
 >
 > Figma と Chrome を切り替える必要はもうありません。
 
-![Hero](../screenshots/hero.png)
+![Hero](screenshots/hero.png)
 
 ---
 
@@ -28,7 +28,7 @@
 
 ### 1. レイヤー — デザインカンプの重ね表示
 
-![Layers](../screenshots/layers.png)
+![Layers](screenshots/layers.png)
 
 - 画像ファイル 最大 50 枚をアップロード / ペースト / ドラッグ
 - 透明度・拡大縮小・X/Y をリアルタイム調整
@@ -38,7 +38,7 @@
 
 ### 2. ガイド — 間隔測定
 
-![Guides](../screenshots/guides.png)
+![Guides](screenshots/guides.png)
 
 - **横 / 縦** ガイド線をワンプッシュで追加
 - ビューーポート上の好きな場所に **ドラッグ** 可能
@@ -48,7 +48,7 @@
 
 ### 3. フローティングパネル
 
-![Panel](../screenshots/panel.png)
+![Panel](screenshots/panel.png)
 
 - ページ注入型の **ドラッグ可能なサイドバー**
 - **Layers** と **Guides**  两个のタブ切替
@@ -87,7 +87,7 @@
 4. **Guides** タブに切り替え、「+ Horizontal」をクリック、ドラッグして測定位置を指定
 5. もう一本追加すると **自動表示された間隔を確認**
 
-![Quickstart](../screenshots/quickstart.gif)
+![Quickstart](screenshots/quickstart.gif)
 
 ## 対象者
 

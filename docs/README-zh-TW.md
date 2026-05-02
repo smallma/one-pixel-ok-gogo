@@ -6,7 +6,7 @@
 
 > 把設計稿圖直接疊在網頁上，用眼睛、用拖曳、用方向鍵對到完全一致。
 
-![Hero](../screenshots/hero.png)
+![Hero](screenshots/hero.png)
 
 ---
 
@@ -26,7 +26,7 @@
 
 ### 1. 圖層（Layers）疊圖
 
-![Layers](../screenshots/layers.png)
+![Layers](screenshots/layers.png)
 
 - 上傳 / 貼上 / 拖入圖檔（單次最多 50 張）
 - 透明度、縮放、X/Y 座標即時調整
@@ -36,7 +36,7 @@
 
 ### 2. 輔助線（Guides）標距
 
-![Guides](../screenshots/guides.png)
+![Guides](screenshots/guides.png)
 
 - 一鍵新增 **水平 / 垂直** 輔助線
 - **直接拖曳** 線條調整位置
@@ -46,7 +46,7 @@
 
 ### 3. 浮動面板
 
-![Panel](../screenshots/panel.png)
+![Panel](screenshots/panel.png)
 
 - 注入網頁的 **可拖曳側邊面板**
 - 切換 **Layers / Guides** 兩個 tab
@@ -85,7 +85,7 @@
 4. 切到 **Guides** tab，按「+ Horizontal」新增水平線，拖到要量的位置
 5. 再加一條，**自動顯示兩條線之間的間距**
 
-![Quickstart](../screenshots/quickstart.gif)
+![Quickstart](screenshots/quickstart.gif)
 
 ## 適合誰用
 

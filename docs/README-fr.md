@@ -7,7 +7,7 @@
 
 > **Superposez votre maquette design directement sur la page live, ajustez pixel par pixel. Plus jamais basculer entre Figma et Chrome.**
 
-![Hero](../screenshots/hero.png)
+![Hero](screenshots/hero.png)
 
 ---
 
@@ -27,7 +27,7 @@ Cette extension vous permet de **superposer la maquette design directement sur l
 
 ### 1. Couches — superposer les maquettes
 
-![Layers](../screenshots/layers.png)
+![Layers](screenshots/layers.png)
 
 - Upload / collage / glisser-déposer jusqu'à 50 fichiers image
 - Opacité, échelle, X/Y en temps réel
@@ -37,7 +37,7 @@ Cette extension vous permet de **superposer la maquette design directement sur l
 
 ### 2. Guides — mesurer l'espacement
 
-![Guides](../screenshots/guides.png)
+![Guides](screenshots/guides.png)
 
 - Ajouter des guides **horizontaux ou verticaux** en un clic
 - **Drag** n'importe où sur le viewport
@@ -47,7 +47,7 @@ Cette extension vous permet de **superposer la maquette design directement sur l
 
 ### 3. Panneau flottant
 
-![Panel](../screenshots/panel.png)
+![Panel](screenshots/panel.png)
 
 - **Sidebar draggable injectée** dans la page
 - Deux onglets : **Layers** & **Guides**
@@ -86,7 +86,7 @@ Ou charger comme extension décompactée :
 4. Passez à l'onglet **Guides**, cliquez sur "+ Horizontal", drag jusqu'à l'emplacement souhaité
 5. Ajoutez-en un autre — **l'espacement entre eux s'affiche automatiquement**
 
-![Quickstart](../screenshots/quickstart.gif)
+![Quickstart](screenshots/quickstart.gif)
 
 ## À qui s'adresse-t-il ?
 
