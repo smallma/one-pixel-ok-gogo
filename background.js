@@ -6,10 +6,35 @@ const DEFAULT_STATE = {
   allVisible: true
 };
 
+// Force-apply updates the moment Chrome finishes downloading them.
+// Without this, the new version only kicks in after Chrome decides to unload
+// the service worker (can be hours). After reload, onInstalled fires with
+// reason "update" and re-injects the new content script into open tabs.
+chrome.runtime.onUpdateAvailable.addListener(() => {
+  chrome.runtime.reload();
+});
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.get('pp_data', (data) => {
     if (!data.pp_data) {
       chrome.storage.local.set({ pp_data: DEFAULT_STATE });
+    }
+  });
+
+  // Inject content script + CSS into already-open tabs so the extension works
+  // without requiring a page reload after install / update.
+  chrome.tabs.query({}, (tabs) => {
+    for (const tab of tabs) {
+      if (!tab.id || !tab.url) continue;
+      if (/^(chrome|edge|about|chrome-extension|devtools|file|view-source):/i.test(tab.url)) continue;
+      chrome.scripting.insertCSS({
+        target: { tabId: tab.id },
+        files: ['content.css'],
+      }).catch(() => {});
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ['content.js'],
+      }).catch(() => {});
     }
   });
 });

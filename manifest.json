@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "OnePixelOkGoGo",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Pixel-perfect design overlay tool for web development comparison",
-  "permissions": ["activeTab", "storage", "unlimitedStorage", "clipboardRead"],
+  "permissions": ["activeTab", "storage", "unlimitedStorage", "clipboardRead", "scripting"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_icon": {
       "16": "icons/icon16.png",
@@ -13,7 +14,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["popup.html", "popup.css", "popup.js", "icons/*"],
+      "resources": ["popup.html", "popup.css", "icons/*"],
       "matches": ["<all_urls>"]
     }
   ],
